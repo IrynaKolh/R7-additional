@@ -21,7 +21,7 @@ RSpec.describe Customer, type: :model do
     expect(subject).to_not be_valid
   end
   it "is not valid if the phone number is not 10 chars"  do
-    subject.phone='213'
+    subject.phone='123456789'
     expect(subject).to_not be_valid
   end
   it "is not valid if the phone number is not all digits"  do
