@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: %i[ show edit update destroy ]
+  before_action :set_customer, only: %i[ show edit update destroy destroy_with_orders ]
   rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
 
   # GET /customers or /customers.json
@@ -74,6 +74,15 @@ class CustomersController < ApplicationController
       format.html { redirect_to customers_path }
       format.json { head :no_content }
     end
+  end
+
+  def destroy_with_orders
+    if @customer.orders.exists?
+      @customer.orders.destroy_all
+    end
+    @customer.destroy
+    flash.notice = "The customer record and all related order records were successfully deleted."
+    redirect_to customers_url
   end
 
   private
