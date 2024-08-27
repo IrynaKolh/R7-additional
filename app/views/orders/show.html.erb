@@ -1,11 +1,18 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @order %>
 
 <div>
   <%= link_to "Edit this order", edit_order_path(@order) %> |
   <%= link_to "Back to orders", orders_path %> | 
   <%= link_to "Back to customer", customer_path(@order.customer_id) %>
-
-  <%= button_to "Destroy this order", @order, method: :delete %>
+  <button type="button" class="btn btn-danger" 
+        data-bs-toggle="modal" 
+        data-bs-target="#orderModal" 
+        data-id="<%= @order.id %>" 
+        data-customer="<%= @order.customer.full_name %>" 
+        data-productname="<%= @order.product_name %>" 
+        data-productcount="<%= @order.product_count %>">
+    Delete this order
+  </button>
 </div>
+
+<%= render "orders/deleteModal" %>

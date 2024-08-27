@@ -1,8 +1,6 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Customers</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -12,14 +10,19 @@
   <tbody>
     <% @customers.each do |customer| %>
       <tr>
+        <td><%= icon('fa-regular', 'user')%></td>
         <td><%= customer.full_name %></td>
         <td><%= customer.orders.count %></td>
-        <td><%= button_to "Show", customer_path(customer), method: :get %></td>
-        <td><%= button_to "Edit", edit_customer_path(customer), method: :get %></td>
-        <td><%= button_to "Delete", customer_path(customer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to "Show", customer_path(customer), class: "btn btn-primary", method: :get %></td>
+        <td><%= button_to "Edit", edit_customer_path(customer), class: "btn btn-primary", method: :get %></td>
+        <td>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal-<%= customer.id%>">
+            Delete
+          </button>
+        </td>
       </tr>
+      <%= render "customers/deleteModal", customer: customer %>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to "New customer", new_customer_path %>
